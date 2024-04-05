@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1082993897768",
+    "project_id": "travelambda",
+    "storage_bucket": "travelambda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082993897768:android:8e45e1c3f0326e556d601d",
+        "android_client_info": {
+          "package_name": "com.lambda.travel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHqzmnOYw1jdb-25XqcX9WolbeGEFH5b8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
