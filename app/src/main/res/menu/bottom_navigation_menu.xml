@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/outline_home_24"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_flight"
+        android:icon="@drawable/outline_airplane_ticket_24"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/baseline_access_time_24"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/baseline_person_outline_24"
+        android:title="" />
+</menu>
