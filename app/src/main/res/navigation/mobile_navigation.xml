@@ -21,5 +21,19 @@
         android:id="@+id/navigation_notifications"
         android:name="com.lambda.travel.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profilescreen" >
+        <action
+            android:id="@+id/action_navigation_notifications_to_navigation_personal_information"
+            app:destination="@id/navigation_personal_information"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_personal_information"
+        android:name="com.lambda.travel.ui.personal_information.PersonalInformationFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_personalinformationscreen" />
 </navigation>

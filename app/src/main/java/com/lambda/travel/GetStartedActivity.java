@@ -1,5 +1,8 @@
 package com.lambda.travel;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,17 @@ public class GetStartedActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+
+        Button btnGetstarted = findViewById(R.id.btnGetstarted);
+        btnGetstarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GetStartedActivity.this, HomeTabActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 }
