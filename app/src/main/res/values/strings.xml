@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Travelambda</string>
+    <string name="app_name">Home Page</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="description">Thailand, one of Asia’s most popular travel destinations, has been badly git a pandemic-induced tourim slump, with about 200,00 arrivals last ye</string>
 </resources>
