@@ -1,4 +1,4 @@
-package com.lambda.travel.ui.personal_information;
+package com.lambda.travel.ui.profile.personal_information;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,15 +14,15 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lambda.travel.R;
-import com.lambda.travel.databinding.FragmentNotificationsBinding;
+import com.lambda.travel.databinding.FragmentPersonalinformationscreenBinding;
 
 public class PersonalInformationFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentPersonalinformationscreenBinding binding;
     private BottomNavigationView bottomNav;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentPersonalinformationscreenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Set the layout to fragment_profilescreen
         root = inflater.inflate(R.layout.fragment_personalinformationscreen, container, false);

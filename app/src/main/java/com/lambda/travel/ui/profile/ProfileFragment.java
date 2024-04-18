@@ -1,4 +1,4 @@
-package com.lambda.travel.ui.notifications;
+package com.lambda.travel.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,14 +14,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 
 import com.lambda.travel.R;
-import com.lambda.travel.databinding.FragmentNotificationsBinding;
+import com.lambda.travel.databinding.FragmentProfilescreenBinding;
 
-public class NotificationsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentProfilescreenBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentProfilescreenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Set the layout to fragment_profilescreen
         root = inflater.inflate(R.layout.fragment_profilescreen, container, false);

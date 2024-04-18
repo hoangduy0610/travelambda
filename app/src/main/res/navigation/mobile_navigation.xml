@@ -12,18 +12,18 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.lambda.travel.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_history"
+        android:name="com.lambda.travel.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.lambda.travel.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_profile"
+        android:name="com.lambda.travel.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_profilescreen" >
         <action
-            android:id="@+id/action_navigation_notifications_to_navigation_personal_information"
+            android:id="@+id/action_navigation_profile_to_navigation_personal_information"
             app:destination="@id/navigation_personal_information"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/navigation_personal_information"
-        android:name="com.lambda.travel.ui.personal_information.PersonalInformationFragment"
-        android:label="@string/title_notifications"
+        android:name="com.lambda.travel.ui.profile.personal_information.PersonalInformationFragment"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_personalinformationscreen" />
 </navigation>
