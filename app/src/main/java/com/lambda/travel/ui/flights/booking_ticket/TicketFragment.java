@@ -1,4 +1,4 @@
-package com.lambda.travel.ui.profile;
+package com.lambda.travel.ui.flights.booking_ticket;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,30 +11,33 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lambda.travel.R;
-import com.lambda.travel.databinding.FragmentProfilescreenBinding;
+import com.lambda.travel.databinding.FragmentTicketScreenBinding;
 
-public class ProfileFragment extends Fragment {
+public class TicketFragment extends Fragment {
 
-    private FragmentProfilescreenBinding binding;
+    private FragmentTicketScreenBinding binding;
+    private BottomNavigationView bottomNav;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentProfilescreenBinding.inflate(inflater, container, false);
+        binding = FragmentTicketScreenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Set the layout to fragment_profilescreen
-        root = inflater.inflate(R.layout.fragment_profilescreen, container, false);
-        // Find the personal_information_item view
-        View personalInformationItem = root.findViewById(R.id.personal_information_item);
+        root = inflater.inflate(R.layout.fragment_ticket_screen, container, false);
 
-        // Set an OnClickListener to handle the onPress event
-        personalInformationItem.setOnClickListener(new View.OnClickListener() {
+        bottomNav = getActivity().findViewById(R.id.nav_view);
+        bottomNav.setVisibility(View.GONE);
+
+        // onPress backScreenBtn
+        View backScreenBtn = root.findViewById(R.id.ticketBackHeadingBtn);
+        backScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                navController.navigate(R.id.navigation_personal_information, null, null, extras);
+                // navigation pop to previous
+                navController.popBackStack();
             }
         });
         return root;
@@ -43,6 +46,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        bottomNav.setVisibility(View.VISIBLE);
         binding = null;
     }
 }

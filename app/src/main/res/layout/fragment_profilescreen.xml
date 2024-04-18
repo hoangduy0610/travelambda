@@ -34,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/ticketBackHeadingBtn"
                         android:layout_width="88dp"
                         android:layout_height="88dp"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -42,4 +42,10 @@
         android:name="com.lambda.travel.ui.profile.personal_information.PersonalInformationFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_personalinformationscreen" />
+    
+    <fragment
+        android:id="@+id/navigation_booking_ticket"
+        android:name="com.lambda.travel.ui.flights.booking_ticket.TicketFragment"
+        android:label="@string/title_flights"
+        tools:layout="@layout/fragment_ticket_screen" />
 </navigation>
