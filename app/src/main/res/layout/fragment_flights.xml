@@ -9,141 +9,146 @@
     android:orientation="vertical"
     >
 
-    <TextView
-        android:id="@+id/titleFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/poppins_medium"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
         android:gravity="bottom"
-        android:text="Flight"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@color/white"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_weight="2"
-        android:gravity="center"
-        >
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="From"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingLeft="20dp"
-        android:drawableEnd="@drawable/chevron_down"
-        android:paddingEnd="20dp"
-        android:fontFamily="@font/montserrat_light"
-        android:background="@drawable/background_edittxt"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/background_edittxt"
-            android:drawableEnd="@drawable/chevron_down"
-            android:fontFamily="@font/montserrat_light"
-            android:hint="To"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp" />
-
-        <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Departure Date"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingLeft="20dp"
-        android:drawableEnd="@drawable/calendar"
-        android:paddingEnd="20dp"
-        android:fontFamily="@font/montserrat_light"
-        android:background="@drawable/background_edittxt"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Return Date"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingLeft="20dp"
-        android:drawableEnd="@drawable/calendar"
-        android:paddingEnd="20dp"
-        android:fontFamily="@font/montserrat_light"
-        android:background="@drawable/background_edittxt"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Passengers"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:fontFamily="@font/montserrat_light"
-            android:background="@drawable/background_edittxt"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Seat Class    "
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:drawableEnd="@drawable/chevron_down"
-            android:paddingEnd="20dp"
-            android:fontFamily="@font/montserrat_light"
-            android:background="@drawable/background_edittxt"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
-
-        <Button
-            android:id="@+id/flightSearchBtn"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/titleFragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/background_btn"
-            android:backgroundTint="@null"
             android:fontFamily="@font/poppins_medium"
-            android:padding="16dp"
-            android:text="Search"
-
-            android:textColor="@color/white" />
-
+            android:gravity="bottom"
+            android:text="@string/title_flights"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_edittxt"
+                android:drawableEnd="@drawable/chevron_down"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="From"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_edittxt"
+                android:drawableEnd="@drawable/chevron_down"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="To"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_edittxt"
+                android:drawableEnd="@drawable/calendar"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="Departure Date"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_edittxt"
+                android:drawableEnd="@drawable/calendar"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="Return Date"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_edittxt"
+                    android:fontFamily="@font/montserrat_light"
+                    android:hint="Passengers"
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_edittxt"
+                    android:drawableEnd="@drawable/chevron_down"
+                    android:fontFamily="@font/montserrat_light"
+                    android:hint="Seat Class    "
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="20dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/flightSearchBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_btn"
+                android:backgroundTint="@null"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="16dp"
+                android:text="Search"
+
+                android:textColor="@color/white" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
