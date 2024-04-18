@@ -7,7 +7,7 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/navigation_flight"
+        android:id="@+id/navigation_flights"
         android:icon="@drawable/outline_airplane_ticket_24"
         android:title="Flights" />
 

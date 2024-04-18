@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_history" />
 
     <fragment
+        android:id="@+id/navigation_flights"
+        android:name="com.lambda.travel.ui.flights.FlightsFragment"
+        android:label="@string/title_flights"
+        tools:layout="@layout/fragment_flights" />
+
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.lambda.travel.ui.profile.ProfileFragment"
         android:label="@string/title_profile"

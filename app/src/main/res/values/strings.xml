@@ -2,5 +2,6 @@
     <string name="app_name">Travelambda</string>
     <string name="title_home">Home</string>
     <string name="title_history">History</string>
+    <string name="title_flights">Flights</string>
     <string name="title_profile">Profile</string>
 </resources>
