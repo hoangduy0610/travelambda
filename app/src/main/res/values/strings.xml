@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Home Page</string>
     <string name="title_home">Home</string>
-    <string name="description">Thailand, one of Asia's most popular travel destinations, has been badly git a pandemic-induced tourim slump, with about 200,00 arrivals last ye</string>
+    <string name="description">Thailand, one of Asia\'s most popular travel destinations, has been badly git a pandemic-induced tourim slump, with about 200,00 arrivals last ye</string>
     <string name="title_history">History</string>
     <string name="title_flights">Flights</string>
     <string name="title_profile">Profile</string>
