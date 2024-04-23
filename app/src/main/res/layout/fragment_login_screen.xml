@@ -10,20 +10,22 @@
         android:id="@+id/pic_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/picture_login"
-            tools:layout_marginTop="dp" />
+             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="387dp">
 
+
             <EditText
-                android:id="@+id/edit3"
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginStart="16dp"
@@ -40,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/edit4"
+                android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -58,12 +60,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit3"
+                app:layout_constraintTop_toBottomOf="@+id/edt_email"
                 app:layout_constraintBottom_toTopOf="@+id/btnLogin"
                 app:layout_constraintVertical_bias="0.467" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtView_ForgotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="200dp"
@@ -72,10 +74,10 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/edit3"
+                app:layout_constraintEnd_toEndOf="@+id/edt_email"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit4"
+                app:layout_constraintTop_toBottomOf="@+id/edt_password"
                 app:layout_constraintVertical_bias="0.055" />
 
             <Button
@@ -94,7 +96,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit4" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_password" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
