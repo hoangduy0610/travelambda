@@ -24,6 +24,15 @@
             android:layout_height="387dp">
 
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="86dp"
+                android:layout_height="74dp"
+                android:elevation="10dp"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="153dp"
+                tools:layout_editor_absoluteY="16dp" />
+
             <EditText
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
@@ -57,11 +66,11 @@
                 android:padding="16dp"
                 android:textColorHint="@color/colorHint"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btnLogin_sub"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_email"
-                app:layout_constraintBottom_toTopOf="@+id/btnLogin"
                 app:layout_constraintVertical_bias="0.467" />
 
             <TextView
@@ -69,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="200dp"
-                android:fontFamily="@font/montserrat_light"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Forgot Password?"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -80,8 +89,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_password"
                 app:layout_constraintVertical_bias="0.055" />
 
+            <TextView
+                android:id="@+id/loginNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Create Account"
+                android:textColor="#18C0C1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin_sub"
+                app:layout_constraintVertical_bias="0.413" />
+
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnLogin_sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -94,6 +118,7 @@
                 android:padding="16dp"
                 android:text="Login"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_password" />
