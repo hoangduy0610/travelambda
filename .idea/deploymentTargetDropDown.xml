@@ -8,10 +8,10 @@
       <entry key="HomeTabActivity">
         <State />
       </entry>
-      <entry key="LoginRegisterActivity">
+      <entry key="LoginFragment">
         <State />
       </entry>
-      <entry key="MainActivity">
+      <entry key="LoginRegisterActivity">
         <State />
       </entry>
       <entry key="RegisterFragment">

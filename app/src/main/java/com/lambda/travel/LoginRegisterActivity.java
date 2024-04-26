@@ -1,4 +1,4 @@
-package com.lambda.travel.ui.LoginAndRegister;
+package com.lambda.travel;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.lambda.travel.MainActivity;
-import com.lambda.travel.R;
 import com.lambda.travel.ui.LoginAndRegister.LoginFragment;
-import com.lambda.travel.ui.LoginAndRegister.RegisterFragment;
 
 public class LoginRegisterActivity extends AppCompatActivity {
     Button btnRegister,btnLogin;
@@ -30,14 +27,14 @@ public class LoginRegisterActivity extends AppCompatActivity {
         });
         btnLogin.findViewById(R.id.btnLogin_sub);
         btnRegister.findViewById(R.id.btnRegister_sub);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        /*btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginRegisterActivity.this, LoginFragment.class);
+                Intent intent = new Intent(getApplicationContext(), LoginFragment.class);
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
        /* btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
