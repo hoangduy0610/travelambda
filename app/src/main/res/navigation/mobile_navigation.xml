@@ -48,4 +48,5 @@
         android:name="com.lambda.travel.ui.flights.booking_ticket.TicketFragment"
         android:label="@string/title_flights"
         tools:layout="@layout/fragment_ticket_screen" />
+
 </navigation>

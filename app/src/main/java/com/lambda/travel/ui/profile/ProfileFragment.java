@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,6 +17,7 @@ import androidx.navigation.fragment.FragmentNavigator;
 
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentProfilescreenBinding;
+import com.lambda.travel.ui.hotel.RoomDetailsFragment;
 
 public class ProfileFragment extends Fragment {
 
