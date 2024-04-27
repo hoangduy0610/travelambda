@@ -13,6 +13,7 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,14 +60,14 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/background_edittxt"
-                android:drawableRight="@drawable/eye_24px"
+                android:drawableRight="@drawable/invisible_24px"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:padding="16dp"
                 android:textColorHint="@color/colorHint"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/btnLogin_sub"
+                app:layout_constraintBottom_toTopOf="@+id/btnLogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,11 +102,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogin_sub"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin"
                 app:layout_constraintVertical_bias="0.413" />
 
             <Button
-                android:id="@+id/btnLogin_sub"
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -125,5 +126,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView_back"
+        android:layout_width="40dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:rotation="180"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_forward_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

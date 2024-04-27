@@ -34,12 +34,13 @@
                 android:layout_width="40dp"
                 android:layout_height="33dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
                 android:rotation="180"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.047"
+                app:layout_constraintHorizontal_bias="0.055"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.15"
                 app:srcCompat="@drawable/baseline_arrow_forward_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,10 +133,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/background_edittxt"
-                android:drawableRight="@drawable/eye_24px"
+                android:drawableRight="@drawable/invisible_24px"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:padding="16dp"
                 android:textColorHint="@color/colorHint"
                 android:textSize="20sp"
@@ -152,25 +153,29 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/background_edittxt"
-                android:drawableRight="@drawable/eye_24px"
+                android:drawableRight="@drawable/invisible_24px"
                 android:ems="10"
                 android:hint="Confirm Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:padding="16dp"
                 android:textColorHint="@color/colorHint"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_password"
-                android:textSize="20sp" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_password" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="144dp"
                 android:layout_height="81dp"
                 android:visibility="invisible"
-                tools:layout_editor_absoluteX="124dp"
-                tools:layout_editor_absoluteY="37dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.114" />
 
             <TextView
                 android:id="@+id/loginNow"
@@ -178,20 +183,18 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Back to Login"
-                android:textColor="#18C0C1"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.938"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_confirmPassword"
-                app:layout_constraintVertical_bias="0.644" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_confirmPassword" />
 
             <Button
-                android:id="@+id/btnRegister_sub"
+                android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="36dp"
 
                 android:backgroundTint="#18C0C1"
                 android:fontFamily="@font/poppins_medium"
