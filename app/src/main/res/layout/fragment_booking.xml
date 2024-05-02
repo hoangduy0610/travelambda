@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/top_image"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:cardCornerRadius="15dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/booking_screen_image"
+                    android:contentDescription="@string/top_image"
+                    android:scaleType="centerCrop">
+                </ImageView>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:src="@drawable/outline_arrow_back_24">
+                </ImageButton>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:src="@drawable/baseline_density_small_24">
+                </ImageButton>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:src="@drawable/outline_heart_broken_24">
+                </ImageButton>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:text="@string/location">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:text="@string/location_name">
+            </TextView>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/round_shape_btn"
+                android:backgroundTint="@color/white"
+                android:text="4.9"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:drawableBottomCompat="@drawable/baseline_star_24">
+
+            </TextView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:backgroundTint="#f2f5fa"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp">
+                        <Button
+                            android:id="@+id/hotels_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_shape_btn"
+                            android:backgroundTint="@color/white"
+                            android:textColor="@color/black"
+                            android:text="Hotels">
+
+                        </Button>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/foods_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_shape_btn"
+                            android:backgroundTint="@color/white"
+                            android:textColor="@color/black"
+                            android:text="Foods">
+
+                        </Button>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/activities_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_shape_btn"
+                            android:backgroundTint="@color/white"
+                            android:textColor="@color/black"
+                            android:text="Activities">
+
+                        </Button>
+                    </LinearLayout>
+                    <!--                    <LinearLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginStart="20dp"-->
+                    <!--                        android:layout_marginEnd="20dp"-->
+                    <!--                        android:layout_marginBottom="10dp"-->
+                    <!--                        android:orientation="horizontal">-->
+                    <!--                        <RelativeLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="match_parent">-->
+
+                    <!--                            <androidx.recyclerview.widget.RecyclerView-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="200sp"-->
+                    <!--                                android:layout_marginTop="10sp"-->
+                    <!--                                android:id="@+id/recycler"-->
+                    <!--                                app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>-->
+
+                    <!--                        </RelativeLayout>-->
+                    <!--                    </LinearLayout>-->
+
+                    <ViewFlipper
+                        android:id="@+id/view_flipper"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:autoStart="true"
+                        android:inAnimation="@android:anim/slide_in_left"
+                        android:outAnimation="@android:anim/slide_out_right">
+                    </ViewFlipper>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:text="DETAILS">
+                    </TextView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:padding="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/white"
+                        android:text="Villa Kayu Lama"
+                        android:textColor="@color/black">
+
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="@string/Hotel_description">
+
+                    </TextView>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Continue"
+                        android:background="@color/teal_200"
+                        android:textColor="@color/white">
+
+                    </Button>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
