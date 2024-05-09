@@ -20,7 +20,7 @@
 
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnLogin_sub"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:text="Login"
@@ -37,11 +37,11 @@
         android:textSize="20dp"/>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnRegister_sub"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:text="Register"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin_sub"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="30dp"

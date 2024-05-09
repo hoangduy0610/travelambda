@@ -1,5 +1,6 @@
 package com.lambda.travel.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.lambda.travel.LoginRegisterActivity;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentProfilescreenBinding;
 
@@ -28,6 +31,8 @@ public class ProfileFragment extends Fragment {
         // Find the personal_information_item view
         View personalInformationItem = root.findViewById(R.id.personal_information_item);
 
+        View logoutItem = root.findViewById(R.id.log_out_item);
+
         // Set an OnClickListener to handle the onPress event
         personalInformationItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +40,15 @@ public class ProfileFragment extends Fragment {
                 FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
                 navController.navigate(R.id.navigation_personal_information, null, null, extras);
+            }
+        });
+
+        logoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(requireContext(), LoginRegisterActivity.class));
+                requireActivity().finish();
             }
         });
         return root;
