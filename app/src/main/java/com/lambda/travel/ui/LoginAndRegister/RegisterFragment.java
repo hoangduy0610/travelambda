@@ -22,11 +22,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.lambda.travel.LoginRegisterActivity;
 import com.lambda.travel.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterFragment extends AppCompatActivity {
 
@@ -88,13 +95,37 @@ public class RegisterFragment extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Toast.makeText(getApplicationContext(), "Account created",
-                                                Toast.LENGTH_SHORT).show();
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        String userId = user.getUid();
+
+                                        // Create a new user record in Firestore
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        Map<String, Object> newUser = new HashMap<>();
+                                        newUser.put("userId", userId);
+                                        newUser.put("cityzen", editTextCityzen.getText().toString());
+                                        newUser.put("fullname", editTextFullName.getText().toString());
+                                        newUser.put("phone", editTextPhoneNumber.getText().toString());
+                                        newUser.put("email", email);
+
+                                        db.collection("users")
+                                            .document(userId)
+                                            .set(newUser)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Sign in success, update UI with the signed-in user's information
+                                                    Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getApplicationContext(), "Failed to create user record", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(getApplicationContext(), task.getException().getMessage(),
-                                                Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

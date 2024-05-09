@@ -209,7 +209,38 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/baseline_arrow_forward_24" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/log_out_item"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp">
+
+                <ImageView
+                    android:id="@+id/imageView_Logout"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_partial_secure" />
+
+                <TextView
+                    android:id="@+id/textView_Logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Logout"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_Logout"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </LinearLayout>
     </ScrollView>
