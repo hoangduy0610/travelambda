@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,10 +21,10 @@ import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentHomeScreenBinding;
 import com.lambda.travel.ui.booking.BookingFragment;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  {
 
     private FragmentHomeScreenBinding binding;
-
+    ImageView fab;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false);

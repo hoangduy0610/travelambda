@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return; // Optional, to prevent executing the remaining code
         }
-        Intent intent = new Intent(MainActivity.this, HomeTabActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
         startActivity(intent);
         finish();
     }
