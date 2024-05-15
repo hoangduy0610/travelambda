@@ -3,6 +3,8 @@ package com.lambda.travel.ui.booking;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.lambda.travel.HomeTabActivity;
+import com.lambda.travel.MainActivity;
 import com.lambda.travel.databinding.FragmentBookingBinding;
 
 import com.lambda.travel.R;
@@ -22,11 +29,13 @@ import com.lambda.travel.R;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class BookingFragment extends Fragment {
 
     private FragmentBookingBinding binding;
     private ViewFlipper viewFlipper;
+    private BottomNavigationView bottomNav;
 
     private int tintColor = Color.parseColor("#c9d4e4");
     private int whiteColor = Color.parseColor("#FFFFFF");
@@ -39,15 +48,16 @@ public class BookingFragment extends Fragment {
     int[] imageList = {};
 
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentBookingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         root= inflater.inflate(R.layout.fragment_booking, container, false);
 
-        super.onCreate(savedInstanceState);
+        bottomNav = getActivity().findViewById(R.id.nav_view);
+        bottomNav.setVisibility(View.GONE);
 
+        super.onCreate(savedInstanceState);
 
         View hotelsButton = root.findViewById(R.id.hotels_button);
         View foodsButton = root.findViewById(R.id.foods_button);
@@ -116,6 +126,20 @@ public class BookingFragment extends Fragment {
             }
         });
         return root;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        View decorView = requireActivity().getWindow().getDecorView();
+// Hide both the navigation bar and the status bar.
+// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+// a general rule, you should design your app to hide the status bar whenever you
+// hide the navigation bar.
+//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+//        decorView.setSystemUiVisibility(uiOptions);
+
     }
 
     @Override
