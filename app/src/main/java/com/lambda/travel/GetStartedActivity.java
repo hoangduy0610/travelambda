@@ -26,7 +26,7 @@ public class GetStartedActivity extends AppCompatActivity {
         btnGetstarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GetStartedActivity.this, HomeTabActivity.class);
+                Intent intent = new Intent(GetStartedActivity.this, LoginRegisterActivity.class);
                 startActivity(intent);
                 finish();
             }

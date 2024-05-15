@@ -5,4 +5,12 @@
     <string name="title_history">History</string>
     <string name="title_flights">Flights</string>
     <string name="title_profile">Profile</string>
+    <string name="location_name">indonesia</string>
+    <string name="location">BALI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_image">top_image\n</string>
+    <string name="Hotel_description">Surrounded by rice fields, Villa Kayu Lama offers a peaceful retreat in Ubud. Guests can take a leisurely swim in the pri... Read More</string>
+    <string name="login_page">Login Page</string>
+    <string name="register_page">Register Page</string>
 </resources>
