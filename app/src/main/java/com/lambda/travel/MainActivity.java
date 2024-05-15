@@ -3,6 +3,7 @@ package com.lambda.travel;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(binding.navView, navController);
 
+
         String firstInitString = sharedPreferences.getString("firstInitApp", "false");
         Log.d("D-Init: ",firstInitString);
         Boolean isFirstInit = (!firstInitString.equals("true"));
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return; // Optional, to prevent executing the remaining code
         }
-        Intent intent = new Intent(MainActivity.this, HomeTabActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
         startActivity(intent);
         finish();
     }

@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.lambda.travel.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_navigation_home_to_bookingFragment"
+            app:destination="@id/navigation_booking_screen" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
@@ -48,4 +52,8 @@
         android:name="com.lambda.travel.ui.flights.booking_ticket.TicketFragment"
         android:label="@string/title_flights"
         tools:layout="@layout/fragment_ticket_screen" />
+    <fragment
+        android:id="@+id/navigation_booking_screen"
+        android:name="com.lambda.travel.ui.booking.BookingFragment"
+        android:label="BookingFragment" />
 </navigation>
