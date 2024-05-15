@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_Progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_layout_progress"
+        android:elevation="8dp"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="806dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="72dp"
+            android:layout_height="76dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:id="@+id/pic_login"
         android:layout_width="match_parent"
@@ -17,22 +36,12 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/picture_login"
-             />
+            android:background="@drawable/picture_login" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="387dp">
 
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="86dp"
-                android:layout_height="74dp"
-                android:elevation="10dp"
-                android:visibility="invisible"
-                tools:layout_editor_absoluteX="153dp"
-                tools:layout_editor_absoluteY="16dp" />
 
             <EditText
                 android:id="@+id/edt_email"
@@ -123,6 +132,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
