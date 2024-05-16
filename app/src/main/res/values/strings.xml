@@ -13,4 +13,5 @@
     <string name="Hotel_description">Surrounded by rice fields, Villa Kayu Lama offers a peaceful retreat in Ubud. Guests can take a leisurely swim in the pri... Read More</string>
     <string name="login_page">Login Page</string>
     <string name="register_page">Register Page</string>
+    <string name="get_otp">Get OTP</string>
 </resources>

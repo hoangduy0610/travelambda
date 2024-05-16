@@ -1,9 +1,7 @@
 package com.lambda.travel.ui.LoginAndRegister;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,14 +26,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.lambda.travel.LoginRegisterActivity;
 import com.lambda.travel.MainActivity;
 import com.lambda.travel.R;
+import com.lambda.travel.ui.forgotPassword.forgotPasswordFragment;
 
 public class LoginFragment extends AppCompatActivity {
     EditText edtEmail,edtPassword;
-    TextView textViewForgotPassword, textViewCreateAccount;
+    TextView textViewForgotPassword, textViewCreateAccount,txtViewForgotPassword;
     Button btnLogin;
     ImageView imgView_back;
-    ConstraintLayout constraintLayout_Progress;
     FirebaseAuth mAuth;
+    ProgressBar progressBar ;
     boolean passwordVisible;
 
     @Override
@@ -50,7 +48,7 @@ public class LoginFragment extends AppCompatActivity {
             finish();*/
         }
     }
-    @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId"})
+    @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId", "CutPasteId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +60,18 @@ public class LoginFragment extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         textViewForgotPassword = findViewById(R.id.txtView_ForgotPassword);
         textViewCreateAccount = findViewById(R.id.loginNow);
-        imgView_back = findViewById(R.id.imageView_back);
-        constraintLayout_Progress=findViewById(R.id.constraintLayout_Progress);
+        imgView_back = findViewById(R.id.imageView_back_forgot);
+        txtViewForgotPassword=findViewById(R.id.txtView_ForgotPassword);
+
+        progressBar=findViewById(R.id.progressBar_login);
+        txtViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), forgotPasswordFragment.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,25 +92,18 @@ public class LoginFragment extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                constraintLayout_Progress.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                btnLogin.setVisibility(View.INVISIBLE);
                 String email, password;
                 email = String.valueOf(edtEmail.getText());
                 password = String.valueOf(edtPassword.getText());
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginFragment.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    constraintLayout_Progress.setVisibility(View.GONE);
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginFragment.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    constraintLayout_Progress.setVisibility(View.GONE);
-                    return;
-                }
+                if(checkIsBlank(email,password)) return; // kiểm tra đã fill chưa
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                constraintLayout_Progress.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.GONE);
+                                btnLogin.setVisibility(View.VISIBLE);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(LoginFragment.this, "Login successful!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -143,6 +144,30 @@ public class LoginFragment extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean checkIsBlank(String email,String password) {
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(LoginFragment.this, "Enter email", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            btnLogin.setVisibility(View.VISIBLE);
+            return true;
+        }
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(LoginFragment.this, "Enter password", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            btnLogin.setVisibility(View.VISIBLE);
+            return true;
+        }
+        if(!email.matches(emailPattern))
+        {
+            Toast.makeText(LoginFragment.this, "Enter email", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            btnLogin.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return false;
     }
 }
 
