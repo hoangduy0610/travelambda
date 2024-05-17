@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,11 +42,11 @@ public class RegisterFragment extends AppCompatActivity {
     Button btnRegister;
     TextView textViewLoginNow;
     ImageView img;
-    ProgressBar progressBar;
+    ConstraintLayout constraintLayout_Progress;
     FirebaseAuth mAuth;
     boolean passwordVisible,confirmPasswordVisible;
     final int TOUCH_OFFSET = 60 ;
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +63,7 @@ public class RegisterFragment extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         img= findViewById(R.id.imageView_back);
         textViewLoginNow=findViewById(R.id.loginNow);
-        progressBar= findViewById(R.id.progressBar);
-
+        constraintLayout_Progress = findViewById(R.id.constraintLayout_Progress);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +83,7 @@ public class RegisterFragment extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
+                constraintLayout_Progress.setVisibility(View.VISIBLE);
                 String email,password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -93,7 +93,7 @@ public class RegisterFragment extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBar.setVisibility(View.GONE);
+                                    constraintLayout_Progress.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         String userId = user.getUid();
@@ -130,7 +130,7 @@ public class RegisterFragment extends AppCompatActivity {
                                 }
                             });
                 }
-                else progressBar.setVisibility(View.GONE);
+                else constraintLayout_Progress.setVisibility(View.GONE);
 
             }
         });
