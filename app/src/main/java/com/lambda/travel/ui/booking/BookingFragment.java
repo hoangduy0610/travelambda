@@ -15,6 +15,8 @@ import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -24,6 +26,7 @@ import com.lambda.travel.MainActivity;
 import com.lambda.travel.databinding.FragmentBookingBinding;
 
 import com.lambda.travel.R;
+import com.lambda.travel.ui.InforBook.InformationBookingFragment;
 
 
 import java.lang.reflect.Array;
@@ -123,6 +126,20 @@ public class BookingFragment extends Fragment {
                     imageView.setImageResource(image);
                     viewFlipper.addView(imageView);
                 }
+            }
+        });
+
+        View contButton = root.findViewById(R.id.btn_continue);
+
+        // Set an OnClickListener to handle the onPress event
+        contButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment informationBookingFragment = new InformationBookingFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,informationBookingFragment);
+                fragmentTransaction.commit();
             }
         });
         return root;
