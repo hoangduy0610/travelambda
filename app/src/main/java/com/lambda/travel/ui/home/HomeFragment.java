@@ -20,6 +20,7 @@ import androidx.navigation.fragment.FragmentNavigator;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentHomeScreenBinding;
 import com.lambda.travel.ui.booking.BookingFragment;
+import com.lambda.travel.ui.reviews.SendReviewsFragment;
 
 public class HomeFragment extends Fragment  {
 
@@ -41,6 +42,20 @@ public class HomeFragment extends Fragment  {
                 FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
                 navController.navigate(R.id.navigation_booking_screen, null, null, extras);
+            }
+        });
+
+        View fabButton = root.findViewById(R.id.fab);
+
+        // Set an OnClickListener to handle the onPress event
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment roomDetailsFragment = new SendReviewsFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,roomDetailsFragment);
+                fragmentTransaction.commit();
             }
         });
         return root;
