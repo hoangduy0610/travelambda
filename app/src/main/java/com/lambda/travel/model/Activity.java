@@ -1,6 +1,6 @@
 package com.lambda.travel.model;
 
-public class Activities {
+public class Activity {
     public String detail;
     public String image;
 
@@ -8,11 +8,11 @@ public class Activities {
 
     public String name;
 
-    Activities() {
+    Activity() {
 
     }
 
-    Activities(String detail, String image, String location, String name) {
+    Activity(String detail, String image, String location, String name) {
         this.detail = detail;
         this.image = image;
         this.location = location;
