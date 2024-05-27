@@ -123,6 +123,7 @@ public class HomeFragment extends Fragment  {
                         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                             String id = locationValues.get(arg2);
                             idSearch = id;
+                            TourInfo.location = locations.get(arg2);
                             Log.d("T", id);
                             ImageView imageView = finalRoot.findViewById(R.id.imageView);
                             String imageUrl = locations.get(arg2).image;
@@ -158,10 +159,12 @@ public class HomeFragment extends Fragment  {
                         if (task.isSuccessful()) {
                             // Handle the query results here
                             List<Tour> tours = new ArrayList<>();
+                            List<String> tour_ids = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // Process each document
                                 Tour tour_temp = document.toObject(Tour.class);
                                 tours.add(tour_temp);
+                                tour_ids.add(document.getId());
                             }
 
                             if (tours.isEmpty()) {
@@ -200,9 +203,10 @@ public class HomeFragment extends Fragment  {
                                     // Get the selected tour object
                                     Tour selectedTour = tours.get(position);
                                     TourInfo.tour = selectedTour;
-                                     FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
-                                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                                     navController.navigate(R.id.navigation_booking_screen, null, null, extras);
+                                    TourInfo.tour_id = tour_ids.get(position);
+                                    FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
+                                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                                    navController.navigate(R.id.navigation_booking_screen, null, null, extras);
                                     // Dismiss the dialog
                                     dialog.dismiss();
                                 }

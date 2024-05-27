@@ -14,13 +14,15 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.lambda.travel.R;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.lambda.travel.databinding.FragmentBookingBinding;
+import com.lambda.travel.R;
+import com.lambda.travel.model.Review;
+import com.lambda.travel.ui.InforBook.InformationBookingFragment;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.lambda.travel.dto.TourInfo;
 import com.lambda.travel.model.Activity;
 import com.lambda.travel.model.Food;
@@ -34,12 +36,12 @@ public class BookingFragment extends Fragment {
     private ViewFlipper viewFlipper;
     private ViewFlipper textFlipper;
     private ViewFlipper nameFlipper;
-    private int tintColor = Color.parseColor("#c9d4e4");
-    private int whiteColor = Color.parseColor("#FFFFFF");
+    private final int tintColor = Color.parseColor("#c9d4e4");
+    private final int whiteColor = Color.parseColor("#FFFFFF");
     private FirebaseFirestore db;
     private static final String TAG = "FirestoreExample";
-    private ColorStateList onClickedTintList = ColorStateList.valueOf(tintColor);
-    private ColorStateList notClickedTintList = ColorStateList.valueOf(whiteColor);
+    private final ColorStateList onClickedTintList = ColorStateList.valueOf(tintColor);
+    private final ColorStateList notClickedTintList = ColorStateList.valueOf(whiteColor);
     private View foodsButton;
     private View hotelsButton;
     private View activitiesButton;
@@ -75,6 +77,45 @@ public class BookingFragment extends Fragment {
 
         // Read data from Firestore
         readDataFromFirestore();
+        
+        View contButton = root.findViewById(R.id.btn_continue);
+
+        // Set an OnClickListener to handle the onPress event
+        contButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("reviews")
+                    .whereEqualTo("tour_id", TourInfo.tour_id)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            int totalReviews = 0;
+                            int totalPoints = 0;
+                            TourInfo.reviews = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Review re_temp = document.toObject(Review.class);
+                                TourInfo.reviews.add(re_temp);
+                                int reviewPoint = re_temp.review;
+                                totalPoints += reviewPoint;
+                                totalReviews++;
+                            }
+
+                            double averagePoint = totalPoints / (double) totalReviews;
+                            // Use the averagePoint for further processing or display
+                            TourInfo.reviewPoint = averagePoint;
+
+
+                            Fragment informationBookingFragment = new InformationBookingFragment();
+                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,informationBookingFragment);
+                            fragmentTransaction.commit();
+                        } else {
+                            Log.d(TAG, "Error getting reviews: ", task.getException());
+                        }
+                    });
+            }
+        });
         return root;
     }
 
