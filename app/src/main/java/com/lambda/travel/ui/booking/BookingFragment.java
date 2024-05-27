@@ -3,6 +3,7 @@ package com.lambda.travel.ui.booking;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,11 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.lambda.travel.databinding.FragmentBookingBinding;
 import com.lambda.travel.R;
+import com.lambda.travel.model.Review;
 import com.lambda.travel.ui.InforBook.InformationBookingFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.lambda.travel.dto.TourInfo;
@@ -32,12 +36,12 @@ public class BookingFragment extends Fragment {
     private ViewFlipper viewFlipper;
     private ViewFlipper textFlipper;
     private ViewFlipper nameFlipper;
-    private int tintColor = Color.parseColor("#c9d4e4");
-    private int whiteColor = Color.parseColor("#FFFFFF");
+    private final int tintColor = Color.parseColor("#c9d4e4");
+    private final int whiteColor = Color.parseColor("#FFFFFF");
     private FirebaseFirestore db;
     private static final String TAG = "FirestoreExample";
-    private ColorStateList onClickedTintList = ColorStateList.valueOf(tintColor);
-    private ColorStateList notClickedTintList = ColorStateList.valueOf(whiteColor);
+    private final ColorStateList onClickedTintList = ColorStateList.valueOf(tintColor);
+    private final ColorStateList notClickedTintList = ColorStateList.valueOf(whiteColor);
     private View foodsButton;
     private View hotelsButton;
     private View activitiesButton;
@@ -80,11 +84,36 @@ public class BookingFragment extends Fragment {
         contButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment informationBookingFragment = new InformationBookingFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,informationBookingFragment);
-                fragmentTransaction.commit();
+                db.collection("reviews")
+                    .whereEqualTo("tour_id", TourInfo.tour_id)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            int totalReviews = 0;
+                            int totalPoints = 0;
+                            TourInfo.reviews = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Review re_temp = document.toObject(Review.class);
+                                TourInfo.reviews.add(re_temp);
+                                int reviewPoint = re_temp.review;
+                                totalPoints += reviewPoint;
+                                totalReviews++;
+                            }
+
+                            double averagePoint = totalPoints / (double) totalReviews;
+                            // Use the averagePoint for further processing or display
+                            TourInfo.reviewPoint = averagePoint;
+
+
+                            Fragment informationBookingFragment = new InformationBookingFragment();
+                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,informationBookingFragment);
+                            fragmentTransaction.commit();
+                        } else {
+                            Log.d(TAG, "Error getting reviews: ", task.getException());
+                        }
+                    });
             }
         });
         return root;

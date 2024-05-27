@@ -177,7 +177,7 @@
                     android:layout_marginRight="15dp">
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/editTextName"
                         android:layout_width="363dp"
                         android:layout_height="60dp"
                         android:background="@drawable/draw_outline_textview"
@@ -203,7 +203,7 @@
                     android:layout_marginRight="15dp">
 
                     <EditText
-                        android:id="@+id/editTextTextEmailAddress"
+                        android:id="@+id/editTextEmailAddress"
                         android:layout_width="363dp"
                         android:layout_height="60dp"
                         android:background="@drawable/draw_outline_textview"
@@ -253,13 +253,13 @@
                     android:layout_marginRight="15dp">
 
                     <EditText
-                        android:id="@+id/editTextID"
+                        android:id="@+id/editTextMature"
                         android:layout_width="363dp"
                         android:layout_height="60dp"
                         android:background="@drawable/draw_outline_textview"
                         android:ems="10"
                         android:fontFamily="@font/poppins_medium"
-                        android:hint="ID"
+                        android:hint="Mature Amount"
                         android:inputType="text"
                         android:paddingLeft="12dp"
                         android:textColorHint="#c0c0c0"
@@ -272,22 +272,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="92dp"
-                        android:layout_height="33dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@drawable/login_btn"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Sent OTP"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -297,13 +282,13 @@
                     android:layout_marginRight="15dp">
 
                     <EditText
-                        android:id="@+id/editTextOTP"
+                        android:id="@+id/editTextChildren"
                         android:layout_width="363dp"
                         android:layout_height="60dp"
                         android:background="@drawable/draw_outline_textview"
                         android:ems="10"
                         android:fontFamily="@font/poppins_medium"
-                        android:hint="OTP"
+                        android:hint="Children Amount"
                         android:inputType="number"
                         android:paddingLeft="12dp"
                         android:textColorHint="#c0c0c0"
@@ -319,7 +304,7 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/booknow_btn"
                         android:layout_width="420dp"
                         android:layout_height="69dp"
                         android:layout_marginBottom="-6dp"
