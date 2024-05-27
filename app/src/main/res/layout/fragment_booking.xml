@@ -80,7 +80,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:textSize="40sp"
-                android:text="@string/location">
+                android:text="Phú Quốc">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:textSize="15sp"
-                android:text="@string/location_name">
+                android:text="Việt Nam">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -193,10 +193,11 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="20dp">
                         <ViewFlipper
-                            android:id="@+id/view_flipper"
+                            android:id="@+id/image_view_flipper"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoStart="true"
+                            android:flipInterval="5000"
                             android:inAnimation="@android:anim/slide_in_left"
                             android:outAnimation="@android:anim/slide_out_right">
                         </ViewFlipper>
@@ -220,28 +221,28 @@
                         android:layout_gravity="center"
                         app:cardCornerRadius="16dp"
                         android:layout_height="wrap_content">
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textAlignment="center"
-                            android:background="@color/white"
-                            android:text="Villa Kayu Lama"
-                            android:textColor="@color/black">
-                        </com.google.android.material.textview.MaterialTextView>
+                        <ViewFlipper
+                            android:id="@+id/name_flipper"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autoStart="true"
+                            android:flipInterval="5000"
+                            android:inAnimation="@android:anim/slide_in_left"
+                            android:outAnimation="@android:anim/slide_out_right">
+                        </ViewFlipper>
                     </androidx.cardview.widget.CardView>
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="@string/Hotel_description">
+                    <ViewFlipper
+                        android:id="@+id/text_view_flipper"
 
-                    </TextView>
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:autoStart="true"
+                        android:flipInterval="5000"
+                        android:inAnimation="@android:anim/slide_in_left"
+                        android:outAnimation="@android:anim/slide_out_right">
+                    </ViewFlipper>
 
                     <Button
                         android:id="@+id/btn_continue"
