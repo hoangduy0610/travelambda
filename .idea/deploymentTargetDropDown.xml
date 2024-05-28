@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="deploymentTargetDropDown">
-    <value>
-      <entry key="GetStartedActivity">
-        <State />
-      </entry>
-      <entry key="LoginFragment">
-        <State />
-      </entry>
-      <entry key="LoginRegisterActivity">
-        <State />
-      </entry>
-      <entry key="MainActivity">
-        <State />
-      </entry>
-      <entry key="RegisterFragment">
-        <State />
-      </entry>
-      <entry key="app">
-        <State />
-      </entry>
-    </value>
+    <targetSelectedWithDropDown>
+      <Target>
+        <type value="QUICK_BOOT_TARGET" />
+        <deviceKey>
+          <Key>
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\duy.nguyenhoang\.android\avd\Pixel_3a_API_33.avd" />
+          </Key>
+        </deviceKey>
+      </Target>
+    </targetSelectedWithDropDown>
+    <timeTargetWasSelectedWithDropDown value="2024-05-28T12:02:40.762229Z" />
   </component>
 </project>
