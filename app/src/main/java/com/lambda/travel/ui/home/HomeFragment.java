@@ -38,6 +38,7 @@ import com.lambda.travel.dto.TourInfo;
 import com.lambda.travel.model.Location;
 import com.lambda.travel.model.Tour;
 import com.lambda.travel.ui.booking.BookingFragment;
+import com.lambda.travel.ui.reviews.SendReviewsFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
