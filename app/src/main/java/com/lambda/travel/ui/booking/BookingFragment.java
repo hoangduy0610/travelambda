@@ -16,7 +16,11 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.lambda.travel.databinding.FragmentBookingBinding;
 import com.lambda.travel.R;
@@ -28,6 +32,7 @@ import com.lambda.travel.model.Activity;
 import com.lambda.travel.model.Food;
 import com.lambda.travel.model.Hotel;
 import com.lambda.travel.model.Tour;
+import com.lambda.travel.ui.reviews.SeenReviewFragment;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
@@ -51,11 +56,29 @@ public class BookingFragment extends Fragment {
     private String[] foodDescriptions;
     private TextView detail;
 
+    private BottomNavigationView bottomNav;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBookingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         root = inflater.inflate(R.layout.fragment_booking, container, false);
+        bottomNav = getActivity().findViewById(R.id.nav_view);
+        bottomNav.setVisibility(View.GONE);
 
+        // onPress backScreenBtn
+        View backScreenBtn = root.findViewById(R.id.bookingBackBtn);
+        backScreenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                // navigation pop to previous
+                bottomNav.setVisibility(View.VISIBLE);
+                navController.popBackStack();
+            }
+        });
+
+
+        ((TextView) root.findViewById(R.id.booking_rating)).setText(Double.toString(TourInfo.reviewPoint));
         db = FirebaseFirestore.getInstance();
 
         //detail = root.findViewById(R.id.detail);
@@ -84,36 +107,28 @@ public class BookingFragment extends Fragment {
         contButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("reviews")
-                    .whereEqualTo("tour_id", TourInfo.tour_id)
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            int totalReviews = 0;
-                            int totalPoints = 0;
-                            TourInfo.reviews = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Review re_temp = document.toObject(Review.class);
-                                TourInfo.reviews.add(re_temp);
-                                int reviewPoint = re_temp.review;
-                                totalPoints += reviewPoint;
-                                totalReviews++;
-                            }
+//                Fragment informationBookingFragment = new InformationBookingFragment();
+//                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,informationBookingFragment);
+//                fragmentTransaction.commit();
+                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                navController.navigate(R.id.navigation_infor_booking_screen, null, null, extras);
+            }
+        });
 
-                            double averagePoint = totalPoints / (double) totalReviews;
-                            // Use the averagePoint for further processing or display
-                            TourInfo.reviewPoint = averagePoint;
-
-
-                            Fragment informationBookingFragment = new InformationBookingFragment();
-                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,informationBookingFragment);
-                            fragmentTransaction.commit();
-                        } else {
-                            Log.d(TAG, "Error getting reviews: ", task.getException());
-                        }
-                    });
+        root.findViewById(R.id.booking_rating).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Fragment seenReviewFragment = new SeenReviewFragment();
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.add(R.id.nav_host_fragment_activity_main, seenReviewFragment);
+//                fragmentTransaction.commit();
+                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                navController.navigate(R.id.navigation_reviews_screen, null, null, extras);
             }
         });
         return root;
