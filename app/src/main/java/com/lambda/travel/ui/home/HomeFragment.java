@@ -243,20 +243,6 @@ public class HomeFragment extends Fragment  {
                     });
             }
         });
-
-        View fabButton = root.findViewById(R.id.fab);
-
-        // Set an OnClickListener to handle the onPress event
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment roomDetailsFragment = new SendReviewsFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,roomDetailsFragment);
-                fragmentTransaction.commit();
-            }
-        });
         
         return root;
     }

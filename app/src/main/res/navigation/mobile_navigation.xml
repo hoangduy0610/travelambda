@@ -64,4 +64,8 @@
         android:id="@+id/navigation_infor_booking_screen"
         android:name="com.lambda.travel.ui.InforBook.InformationBookingFragment"
         android:label="InformationBookingFragment" />
+    <fragment
+        android:id="@+id/navigation_submit_review"
+        android:name="com.lambda.travel.ui.reviews.SendReviewsFragment"
+        android:label="SubmitReviewFragment" />
 </navigation>

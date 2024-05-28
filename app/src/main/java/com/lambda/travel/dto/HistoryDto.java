@@ -6,5 +6,4 @@ import java.util.ArrayList;
 
 public class HistoryDto {
     public static ArrayList<BookingHistory> histories = new ArrayList<>();
-    public static int counting;
 }

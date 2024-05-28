@@ -112,6 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="48dp"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/baseline_star_rate_24" />
@@ -126,6 +127,7 @@
                             android:text="4.9"
                             android:textSize="16sp"
                             android:textStyle="bold"
+                            android:visibility="gone"
                             app:layout_constraintStart_toEndOf="@+id/imageView5"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,6 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:progressTint="#F1B308"
+                        android:stepSize="1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
