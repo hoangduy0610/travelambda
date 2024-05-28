@@ -32,6 +32,7 @@ import androidx.navigation.fragment.FragmentNavigator;
 import com.google.firebase.Timestamp;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentHomeScreenBinding;
+import com.lambda.travel.model.Review;
 import com.lambda.travel.ui.reviews.SeenReviewFragment;
 import com.lambda.travel.dto.TourInfo;
 import com.lambda.travel.model.Location;
@@ -52,6 +53,7 @@ public class HomeFragment extends Fragment  {
 
     private FragmentHomeScreenBinding binding;
     private Calendar timestamp = Calendar.getInstance();
+    private boolean allowTogglePicker = true;
     private String idSearch;
     ImageView fab;
     @SuppressLint("NewApi")
@@ -60,40 +62,20 @@ public class HomeFragment extends Fragment  {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         root = inflater.inflate(R.layout.fragment_home_screen, container, false);
-        View avtButton = root.findViewById(R.id.avatar);
-
-        // Set an OnClickListener to handle the onPress event
-        avtButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment seenReviewFragment = new SeenReviewFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main,seenReviewFragment);
-                fragmentTransaction.commit();
-//                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
-//                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-//                navController.navigate(R.id.navigation_seenreview, null, null, extras);
-            }
-        });
 
         EditText datePickerHolder = root.findViewById(R.id.datePickerHolder);
         DatePicker datePicker = root.findViewById(R.id.datePicker);
+        timestamp.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 0,0,0);
+        datePickerHolder.setText(timestamp.get(Calendar.DAY_OF_MONTH) + "/" + (timestamp.get(Calendar.MONTH)+1) + "/" + timestamp.get(Calendar.YEAR));
         datePickerHolder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    datePicker.setVisibility(View.VISIBLE);
-                } else {
-                    datePicker.setVisibility(View.GONE);
+                if (!allowTogglePicker) {
+                    allowTogglePicker = true;
+                    return;
                 }
-            }
-        });
-        datePickerHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                allowTogglePicker = false;
+                datePickerHolder.clearFocus();
                 if (datePicker.getVisibility() == View.GONE) {
                     datePicker.setVisibility(View.VISIBLE);
                 } else {
@@ -221,11 +203,36 @@ public class HomeFragment extends Fragment  {
                                     Tour selectedTour = tours.get(position);
                                     TourInfo.tour = selectedTour;
                                     TourInfo.tour_id = tour_ids.get(position);
-                                    FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
-                                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                                    navController.navigate(R.id.navigation_booking_screen, null, null, extras);
-                                    // Dismiss the dialog
-                                    dialog.dismiss();
+
+                                    db.collection("reviews")
+                                        .whereEqualTo("tour_id", tour_ids.get(position))
+                                        .get()
+                                        .addOnCompleteListener(task -> {
+                                            if (task.isSuccessful()) {
+                                                int totalReviews = 0;
+                                                int totalPoints = 0;
+                                                TourInfo.reviews = new ArrayList<>();
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    Review re_temp = document.toObject(Review.class);
+                                                    TourInfo.reviews.add(re_temp);
+                                                    int reviewPoint = re_temp.review;
+                                                    totalPoints += reviewPoint;
+                                                    totalReviews++;
+                                                }
+
+                                                double averagePoint = totalPoints / (double) totalReviews;
+                                                // Use the averagePoint for further processing or display
+                                                TourInfo.reviewPoint = averagePoint;
+
+                                                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
+                                                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                                                navController.navigate(R.id.navigation_booking_screen, null, null, extras);
+                                                // Dismiss the dialog
+                                                dialog.dismiss();
+                                            } else {
+                                                Log.d("D", "Error getting reviews: ", task.getException());
+                                            }
+                                    });
                                 }
                             });
                             dialog.show();

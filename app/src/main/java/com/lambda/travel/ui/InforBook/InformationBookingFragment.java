@@ -43,12 +43,23 @@ public class InformationBookingFragment extends Fragment {
         bottomNav = getActivity().findViewById(R.id.nav_view);
         bottomNav.setVisibility(View.GONE);
 
+        // onPress backScreenBtn
+        View backScreenBtn = root.findViewById(R.id.imageView2);
+        backScreenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                // navigation pop to previous
+                navController.popBackStack();
+            }
+        });
+
         Tour tour = TourInfo.tour;
         Location location = TourInfo.location;
 
-        TextView tourName = root.findViewById(R.id.textView6);
-        TextView tourReview = root.findViewById(R.id.textView7);
-        TextView tourLocation = root.findViewById(R.id.textView8);
+        TextView tourName = root.findViewById(R.id.readReviewNameTour);
+        TextView tourReview = root.findViewById(R.id.starContentReviewElem);
+        TextView tourLocation = root.findViewById(R.id.readReviewLocation);
 
         tourName.setText(tour.name);
         tourLocation.setText(location.city);
@@ -115,7 +126,7 @@ public class InformationBookingFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        bottomNav.setVisibility(View.VISIBLE);
+//        bottomNav.setVisibility(View.VISIBLE);
         binding = null;
     }
 }
