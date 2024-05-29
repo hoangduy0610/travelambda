@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +41,7 @@ public class RegisterFragment extends AppCompatActivity {
     Button btnRegister;
     TextView textViewLoginNow;
     ImageView img;
-    ConstraintLayout constraintLayout_Progress;
+    ProgressBar progressBar ;
     FirebaseAuth mAuth;
     boolean passwordVisible,confirmPasswordVisible;
     final int TOUCH_OFFSET = 60 ;
@@ -54,16 +53,16 @@ public class RegisterFragment extends AppCompatActivity {
         setContentView(R.layout.fragment_register_screen);
 
         mAuth =FirebaseAuth.getInstance();
-        editTextCityzen = findViewById(R.id.edt_Citizen);
+        editTextCityzen = findViewById(R.id.edt_email_forgot);
         editTextFullName=findViewById(R.id.edt_fullname);
-        editTextEmail =findViewById(R.id.edt_email);
+        editTextEmail =findViewById(R.id.edt_otp);
         editTextPhoneNumber=findViewById(R.id.edt_phone);
         editTextPassword=findViewById(R.id.edt_password);
         editTextConfirmPassword=findViewById(R.id.edt_confirmPassword);
-        btnRegister = findViewById(R.id.btnRegister);
-        img= findViewById(R.id.imageView_back);
+        btnRegister = findViewById(R.id.btnConfirm);
+        img= findViewById(R.id.imageView_back_forgot);
         textViewLoginNow=findViewById(R.id.loginNow);
-        constraintLayout_Progress = findViewById(R.id.constraintLayout_Progress);
+        progressBar = findViewById(R.id.progressBar_register);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +82,8 @@ public class RegisterFragment extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                constraintLayout_Progress.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                btnRegister.setVisibility(View.INVISIBLE);
                 String email,password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -93,7 +93,8 @@ public class RegisterFragment extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    constraintLayout_Progress.setVisibility(View.GONE);
+                                    progressBar.setVisibility(View.GONE);
+                                    btnRegister.setVisibility(View.VISIBLE);
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         String userId = user.getUid();
@@ -130,7 +131,12 @@ public class RegisterFragment extends AppCompatActivity {
                                 }
                             });
                 }
-                else constraintLayout_Progress.setVisibility(View.GONE);
+                else
+                {
+                    progressBar.setVisibility(View.GONE);
+                    btnRegister.setVisibility(View.VISIBLE);
+                }
+
 
             }
         });
@@ -184,6 +190,7 @@ public class RegisterFragment extends AppCompatActivity {
     public boolean checkValid()
     {
         String cityzen,fullname,phone,email,password, confirmpassword;
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         cityzen = String.valueOf(editTextCityzen.getText());
         fullname = String.valueOf(editTextFullName.getText());
         phone = String.valueOf(editTextPhoneNumber.getText());
@@ -208,6 +215,11 @@ public class RegisterFragment extends AppCompatActivity {
         if(TextUtils.isEmpty(email))
         {
             Toast.makeText(RegisterFragment.this,"Enter email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!email.matches(emailPattern))
+        {
+            Toast.makeText(RegisterFragment.this, "Invalid email", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(password))

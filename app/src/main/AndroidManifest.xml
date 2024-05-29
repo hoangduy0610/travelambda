@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Travelambda"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ui.forgotPassword.forgotPasswordFragment"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -36,20 +40,18 @@
         <activity
             android:name=".LoginRegisterActivity"
             android:exported="true"
-            android:label="Login And Register Page"
-            >
+            android:label="Login And Register Page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:windowSoftInputMode="adjustResize"
             android:name=".ui.LoginAndRegister.RegisterFragment"
             android:exported="true"
-            android:label="Register Page">
+            android:label="Register Page"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,14 +62,12 @@
             android:name=".ui.LoginAndRegister.LoginFragment"
             android:exported="true"
             android:label="Login Page">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".HomeTabActivity"
             android:exported="true"
@@ -78,9 +78,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
     </application>
 
 </manifest>
