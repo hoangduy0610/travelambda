@@ -10,6 +10,8 @@
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,20 +31,22 @@
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
-                    android:layout_height="319dp"
+                    android:layout_height="300dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/picture_login"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
-                    android:id="@+id/imageView_back"
+                    android:id="@+id/imageView_back_forgot"
                     android:layout_width="40dp"
                     android:layout_height="33dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="4dp"
                     android:rotation="180"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +63,7 @@
 
 
                 <EditText
-                    android:id="@+id/edt_Citizen"
+                    android:id="@+id/edt_email_forgot"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginStart="16dp"
@@ -68,7 +72,7 @@
                     android:background="@drawable/background_edittxt"
                     android:ems="10"
                     android:hint="Citizen"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:padding="16dp"
                     android:textColorHint="@color/colorHint"
                     android:textSize="20sp"
@@ -94,10 +98,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_Citizen" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_email_forgot" />
 
                 <EditText
-                    android:id="@+id/edt_email"
+                    android:id="@+id/edt_otp"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginStart="16dp"
@@ -125,7 +129,7 @@
                     android:background="@drawable/background_edittxt"
                     android:ems="10"
                     android:hint="Phone Number"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:padding="16dp"
                     android:textColorHint="@color/colorHint"
                     android:textSize="20sp"
@@ -152,7 +156,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_otp" />
 
                 <EditText
                     android:id="@+id/edt_confirmPassword"
@@ -174,18 +178,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edt_password" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="144dp"
-                    android:layout_height="81dp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.114" />
-
                 <TextView
                     android:id="@+id/loginNow"
                     android:layout_width="wrap_content"
@@ -199,22 +191,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edt_confirmPassword" />
 
-                <Button
-                    android:id="@+id/btnRegister"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp"
-
-                    android:backgroundTint="#18C0C1"
-                    android:fontFamily="@font/poppins_medium"
-                    android:padding="16dp"
-                    android:text="Register"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:layout_marginBottom="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_confirmPassword" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_confirmPassword">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar_register"
+                        android:layout_width="72dp"
+                        android:layout_height="76dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btnConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/background_btn"
+                        android:fontFamily="@font/poppins_medium"
+                        android:padding="16dp"
+                        android:text="Register"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        />
+                </FrameLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
