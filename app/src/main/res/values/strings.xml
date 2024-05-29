@@ -14,4 +14,6 @@
     <string name="login_page">Login Page</string>
     <string name="register_page">Register Page</string>
     <string name="get_otp">Get OTP</string>
+    <string name="title_reviews">Reviews</string>
+    <string name="about_us">About Us</string>
 </resources>

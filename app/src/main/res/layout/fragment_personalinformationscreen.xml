@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:foregroundTint="#fff">
 
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -78,7 +80,7 @@
                 android:layout_marginRight="15dp">
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/editTextName"
                     android:layout_width="382dp"
                     android:layout_height="60dp"
                     android:background="@drawable/draw_outline_textview"
@@ -86,8 +88,8 @@
                     android:hint="Full Name"
                     android:inputType="text"
                     android:paddingLeft="12dp"
-                    android:textSize="20sp"
                     android:textColorHint="#c0c0c0"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +104,7 @@
                 android:layout_marginRight="15dp">
 
                 <EditText
-                    android:id="@+id/editTextTextEmailAddress"
+                    android:id="@+id/editTextEmailAddress"
                     android:layout_width="382dp"
                     android:layout_height="60dp"
                     android:background="@drawable/draw_outline_textview"
@@ -110,8 +112,8 @@
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="12dp"
-                    android:textSize="20sp"
                     android:textColorHint="#c0c0c0"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -134,8 +136,8 @@
                     android:hint="Phone Number"
                     android:inputType="phone"
                     android:paddingLeft="12dp"
-                    android:textSize="20sp"
                     android:textColorHint="#c0c0c0"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +149,8 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/editTextPassword"
@@ -158,12 +161,12 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:paddingLeft="12dp"
-                    android:textSize="20sp"
                     android:textColorHint="#c0c0c0"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -171,7 +174,8 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/editTextConfirmPassword"
@@ -182,8 +186,8 @@
                     android:hint="Confirm Password"
                     android:inputType="textPassword"
                     android:paddingLeft="12dp"
-                    android:textSize="20sp"
                     android:textColorHint="#c0c0c0"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -191,4 +195,17 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveInfoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_edit_note_24"
+        android:tint="#fff"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView4"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

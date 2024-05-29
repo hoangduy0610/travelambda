@@ -21,4 +21,7 @@
     <color name="button_onclicked">#c9d4e4</color>
     <color name="cl_button_orange">#FC8772</color>
     <color name="red_accent">#FF1F1F</color>
+    <color name ="gray_bold">#979797</color>
+    <color name ="yellow_bold">#FFD700</color>
+    <color name ="footer_contact">#DDEFE8</color>
 </resources>
