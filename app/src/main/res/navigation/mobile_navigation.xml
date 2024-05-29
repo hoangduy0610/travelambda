@@ -68,4 +68,12 @@
         android:id="@+id/navigation_submit_review"
         android:name="com.lambda.travel.ui.reviews.SendReviewsFragment"
         android:label="SubmitReviewFragment" />
+    <fragment
+        android:id="@+id/navigation_about_us"
+        android:name="com.lambda.travel.ui.aboutus.AboutUsFragment"
+        android:label="About Us" />
+    <fragment
+        android:id="@+id/navigation_contact_us"
+        android:name="com.lambda.travel.ui.contactus.ContactUsFragment"
+        android:label="Contact Us" />
 </navigation>

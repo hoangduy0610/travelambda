@@ -29,7 +29,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentHomeScreenBinding;
 import com.lambda.travel.model.Review;
@@ -57,13 +63,17 @@ public class HomeFragment extends Fragment  {
     private boolean allowTogglePicker = true;
     private String idSearch;
     ImageView fab;
+    private BottomNavigationView bottomNav;
     @SuppressLint("NewApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         root = inflater.inflate(R.layout.fragment_home_screen, container, false);
-
+        bottomNav = getActivity().findViewById(R.id.nav_view);
+        if (bottomNav != null) {
+            bottomNav.setVisibility(View.VISIBLE);
+        }
         EditText datePickerHolder = root.findViewById(R.id.datePickerHolder);
         DatePicker datePicker = root.findViewById(R.id.datePicker);
         timestamp.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 0,0,0);
@@ -96,7 +106,32 @@ public class HomeFragment extends Fragment  {
         });
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Get the current user ID
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String userId = firebaseAuth.getCurrentUser().getUid();
+        DocumentReference userRef = db.collection("users").document(userId);
         View finalRoot = root;
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String imageUrl = document.getString("imageUrl");
+
+                        if (imageUrl != null) {
+                            // Load the image from imageUrl
+                            ImageView imageView = finalRoot.findViewById(R.id.avatar_image);
+                            Picasso.get().load(imageUrl).into(imageView);
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         db.collection("locations")
             .get()
             .addOnCompleteListener(task -> {

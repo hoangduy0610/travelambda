@@ -56,9 +56,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/white"
+                android:contentDescription="@string/title_home"
                 android:src="@drawable/ic_notifications_black_24dp"
-                app:fabCustomSize="24dp"
-                android:contentDescription="@string/title_home"/>
+                android:visibility="invisible"
+                app:fabCustomSize="45dp" />
         </LinearLayout>
 
         <Spinner

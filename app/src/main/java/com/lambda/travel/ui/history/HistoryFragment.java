@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,11 +43,14 @@ import java.util.List;
 public class HistoryFragment extends Fragment {
 
     private FragmentHistoryBinding binding;
+    private BottomNavigationView bottomNav;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         root = inflater.inflate(R.layout.fragment_history, container, false);
+        bottomNav = getActivity().findViewById(R.id.nav_view);
+        bottomNav.setVisibility(View.VISIBLE);
         ConstraintLayout historiesContainer = root.findViewById(R.id.historiesContainer);
         SwipeRefreshLayout mySwipeRefreshLayout = root.findViewById(R.id.swiperefresh);
         mySwipeRefreshLayout.setOnRefreshListener(() -> {
