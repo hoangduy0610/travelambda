@@ -56,6 +56,8 @@ public class BookingFragment extends Fragment {
     private String[] foodDescriptions;
     private TextView detail;
 
+    private TextView locationName;
+
     private BottomNavigationView bottomNav;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class BookingFragment extends Fragment {
 
 
         ((TextView) root.findViewById(R.id.booking_rating)).setText(Double.toString(TourInfo.reviewPoint));
+        ((TextView) root.findViewById(R.id.location_name)).setText(TourInfo.location.city);
         db = FirebaseFirestore.getInstance();
 
         //detail = root.findViewById(R.id.detail);
