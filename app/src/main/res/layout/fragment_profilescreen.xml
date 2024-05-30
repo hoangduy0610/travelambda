@@ -61,8 +61,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -125,7 +124,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="12dp">
 
                 <ImageView
@@ -282,11 +280,11 @@
                 <ImageView
                     android:id="@+id/imageView_Logout"
                     android:layout_width="40dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_partial_secure" />
+                    app:srcCompat="@drawable/outline_heart_broken_24" />
 
                 <TextView
                     android:id="@+id/textView_Logout"

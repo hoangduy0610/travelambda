@@ -16,11 +16,13 @@
 
         <activity
             android:name=".ui.forgotPassword.forgotPasswordFragment"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +37,8 @@
         <activity
             android:name=".LoginRegisterActivity"
             android:exported="true"
-            android:label="Login And Register Page">
+            android:label="Login And Register Page"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".ui.LoginAndRegister.RegisterFragment"
@@ -46,12 +49,14 @@
         <activity
             android:name=".ui.LoginAndRegister.LoginFragment"
             android:exported="true"
-            android:label="Login Page">
+            android:label="Login Page"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".HomeTabActivity"
             android:exported="true"
-            android:label="Home Tab">
+            android:label="Home Tab"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

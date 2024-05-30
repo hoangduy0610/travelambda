@@ -7,9 +7,10 @@
     android:background="#ffffff">
 
     <ScrollView
-        android:fitsSystemWindows="true"
+        android:id="@+id/registerScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,6 +22,7 @@
             android:id="@+id/pic_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:descendantFocusability="afterDescendants"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
 
@@ -31,16 +33,12 @@
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/picture_login"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView_back_forgot"
@@ -59,13 +57,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="490dp">
+                android:layout_height="wrap_content">
 
 
                 <EditText
                     android:id="@+id/edt_email_forgot"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -84,7 +82,7 @@
                 <EditText
                     android:id="@+id/edt_fullname"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -101,28 +99,9 @@
                     app:layout_constraintTop_toBottomOf="@+id/edt_email_forgot" />
 
                 <EditText
-                    android:id="@+id/edt_otp"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/background_edittxt"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColorHint="@color/colorHint"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_phone" />
-
-                <EditText
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -137,6 +116,25 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edt_fullname" />
+
+                <EditText
+                    android:id="@+id/edt_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/background_edittxt"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColorHint="@color/colorHint"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_phone" />
 
                 <EditText
                     android:id="@+id/edt_password"
@@ -182,6 +180,7 @@
                     android:id="@+id/loginNow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Back to Login"
                     android:textSize="20sp"
@@ -194,12 +193,12 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="64dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_confirmPassword">
+                    app:layout_constraintTop_toBottomOf="@+id/loginNow">
 
                     <ProgressBar
                         android:id="@+id/progressBar_register"
@@ -213,16 +212,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/background_btn"
                         android:fontFamily="@font/poppins_medium"
                         android:padding="16dp"
                         android:text="Register"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
                 </FrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

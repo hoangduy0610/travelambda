@@ -34,6 +34,7 @@ import com.lambda.travel.R;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterFragment extends AppCompatActivity {
 
@@ -66,9 +67,9 @@ public class RegisterFragment extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), LoginRegisterActivity.class);
-            startActivity(intent);
-            finish();
+                Intent intent = new Intent(getApplicationContext(), LoginRegisterActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         textViewLoginNow.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +192,7 @@ public class RegisterFragment extends AppCompatActivity {
     {
         String cityzen,fullname,phone,email,password, confirmpassword;
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern passwordREGEX = Pattern.compile("^.{8,}$");
         cityzen = String.valueOf(editTextCityzen.getText());
         fullname = String.valueOf(editTextFullName.getText());
         phone = String.valueOf(editTextPhoneNumber.getText());
@@ -199,42 +201,46 @@ public class RegisterFragment extends AppCompatActivity {
         confirmpassword =String.valueOf(editTextConfirmPassword.getText());
         if(TextUtils.isEmpty(cityzen))
         {
-            Toast.makeText(RegisterFragment.this,"Enter cityzen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterFragment.this,"Please enter cityzen", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(fullname))
         {
-            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Enter fullname", Toast.LENGTH_SHORT).show();
+            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Please enter fullname", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(phone))
         {
-            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Enter phone", Toast.LENGTH_SHORT).show();
+            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Please enter phone", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(email))
         {
-            Toast.makeText(RegisterFragment.this,"Enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterFragment.this,"Please enter email", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!email.matches(emailPattern))
         {
-            Toast.makeText(RegisterFragment.this, "Invalid email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterFragment.this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(password))
         {
-            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Enter password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterFragment.this,"Please enter password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (passwordREGEX.matcher(password).matches()) {
+            Toast.makeText(RegisterFragment.this,"Password must have at least 8 characters", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(confirmpassword))
         {
-            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Enter confirm password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterFragment.this,"Please repeat password", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!confirmpassword.equals(password))
         {
-            Toast.makeText(com.lambda.travel.ui.LoginAndRegister.RegisterFragment.this,"Password and password confirm don't same", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterFragment.this,"Password and password repeat not the same", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

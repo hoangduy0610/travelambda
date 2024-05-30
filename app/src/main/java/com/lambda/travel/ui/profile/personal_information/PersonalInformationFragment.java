@@ -36,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentPersonalinformationscreenBinding;
+import com.lambda.travel.dto.Cache;
 
 import java.util.UUID;
 
@@ -116,6 +117,7 @@ public class PersonalInformationFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                Cache.userName = newName;
                                 Toast.makeText(getActivity(), "Information saved successfully", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getActivity(), "Failed to save information", Toast.LENGTH_SHORT).show();

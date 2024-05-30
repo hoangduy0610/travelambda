@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentHistoryBinding;
 import com.lambda.travel.dto.HistoryDto;
 import com.lambda.travel.dto.SelectTourForReview;
+import com.lambda.travel.dto.TourBookInfo;
 import com.lambda.travel.model.BookingHistory;
 import com.lambda.travel.model.Location;
 import com.lambda.travel.model.Review;
@@ -51,7 +53,7 @@ public class HistoryFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_history, container, false);
         bottomNav = getActivity().findViewById(R.id.nav_view);
         bottomNav.setVisibility(View.VISIBLE);
-        ConstraintLayout historiesContainer = root.findViewById(R.id.historiesContainer);
+        LinearLayout historiesContainer = root.findViewById(R.id.historiesContainer);
         SwipeRefreshLayout mySwipeRefreshLayout = root.findViewById(R.id.swiperefresh);
         mySwipeRefreshLayout.setOnRefreshListener(() -> {
                 Log.i("Tag", "onRefresh called from SwipeRefreshLayout");
@@ -70,7 +72,7 @@ public class HistoryFragment extends Fragment {
         return root;
     }
 
-    private void initFirestoreData(ConstraintLayout historiesContainer, SwipeRefreshLayout srl) {
+    private void initFirestoreData(LinearLayout historiesContainer, SwipeRefreshLayout srl) {
         HistoryDto.histories = new ArrayList<>();
         historiesContainer.removeAllViews();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -142,7 +144,7 @@ public class HistoryFragment extends Fragment {
             });
     }
 
-    private void processHistories(ConstraintLayout historiesContainer, BookingHistory history) {
+    private void processHistories(LinearLayout historiesContainer, BookingHistory history) {
         View cardView = LayoutInflater.from(getContext()).inflate(R.layout.history_card_layout, historiesContainer, false);
 
         TextView tourNameTextView = cardView.findViewById(R.id.textView);
@@ -180,7 +182,15 @@ public class HistoryFragment extends Fragment {
                 }
             });
         }
-
+        cardView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                TourBookInfo.booking = history;
+                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                navController.navigate(R.id.navigation_infor_booking_screen, null, null, extras);
+            }
+        });
         historiesContainer.addView(cardView);
     }
 

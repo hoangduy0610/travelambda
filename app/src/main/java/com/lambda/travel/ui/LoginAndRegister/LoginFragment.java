@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,23 @@ public class LoginFragment extends AppCompatActivity {
         textViewCreateAccount = findViewById(R.id.loginNow);
         imgView_back = findViewById(R.id.imageView_back_forgot);
         txtViewForgotPassword=findViewById(R.id.txtView_ForgotPassword);
+        ScrollView scrollView = findViewById(R.id.loginScroll);
+
+        edtEmail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                scrollView.smoothScrollTo(0,1000);
+                return false;
+            }
+        });
+
+        edtPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                scrollView.smoothScrollTo(0,1000);
+                return false;
+            }
+        });
 
         progressBar=findViewById(R.id.progressBar_login);
         txtViewForgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +123,13 @@ public class LoginFragment extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 btnLogin.setVisibility(View.VISIBLE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(LoginFragment.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginFragment.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(LoginFragment.this, "Email or password are wrong!",
+                                    Toast.makeText(LoginFragment.this, "Wrong credentials!",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -149,20 +167,20 @@ public class LoginFragment extends AppCompatActivity {
     private boolean checkIsBlank(String email,String password) {
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(LoginFragment.this, "Enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginFragment.this, "Please enter email", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
             btnLogin.setVisibility(View.VISIBLE);
             return true;
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(LoginFragment.this, "Enter password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginFragment.this, "Please enter password", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
             btnLogin.setVisibility(View.VISIBLE);
             return true;
         }
         if(!email.matches(emailPattern))
         {
-            Toast.makeText(LoginFragment.this, "Enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginFragment.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
             btnLogin.setVisibility(View.VISIBLE);
             return true;
