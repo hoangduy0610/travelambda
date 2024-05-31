@@ -20,7 +20,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="375dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -38,10 +38,12 @@
                     android:id="@+id/img_back_forgot"
                     android:layout_width="40dp"
                     android:layout_height="33dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
                     android:rotation="180"
-                    app:srcCompat="@drawable/baseline_arrow_forward_24"
-                    tools:layout_editor_absoluteX="24dp"
-                    tools:layout_editor_absoluteY="52dp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_arrow_forward_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

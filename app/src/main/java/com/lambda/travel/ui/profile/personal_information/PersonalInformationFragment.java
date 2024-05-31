@@ -87,7 +87,6 @@ public class PersonalInformationFragment extends Fragment {
             public void onClick(View v) {
                 // Set fields as read-only
                 editTextName.setEnabled(true);
-                editTextEmailAddress.setEnabled(true);
                 editTextPhoneNumber.setEnabled(true);
 
                 saveInfo.setVisibility(View.VISIBLE);

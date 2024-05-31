@@ -229,7 +229,7 @@ public class RegisterFragment extends AppCompatActivity {
             Toast.makeText(RegisterFragment.this,"Please enter password", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (passwordREGEX.matcher(password).matches()) {
+        if (!passwordREGEX.matcher(password).matches()) {
             Toast.makeText(RegisterFragment.this,"Password must have at least 8 characters", Toast.LENGTH_SHORT).show();
             return false;
         }

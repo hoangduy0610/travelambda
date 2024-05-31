@@ -218,7 +218,8 @@ public class HomeFragment extends Fragment  {
                                     TourInfo.tour_id = tour_ids.get(position);
 
                                     db.collection("reviews")
-                                        .whereEqualTo("tour_id", tour_ids.get(position))
+                                        // .whereEqualTo("tour_id", tour_ids.get(position))
+                                        .whereEqualTo("location_id", selectedTour.destination_id)
                                         .get()
                                         .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {
