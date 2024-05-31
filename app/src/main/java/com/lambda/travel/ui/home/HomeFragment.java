@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment  {
 
     private FragmentHomeScreenBinding binding;
     private Calendar timestamp = Calendar.getInstance();
+    private Calendar timestampEnd = Calendar.getInstance();
     private boolean allowTogglePicker = true;
     private String idSearch;
     ImageView fab;
@@ -78,7 +79,8 @@ public class HomeFragment extends Fragment  {
         }
         EditText datePickerHolder = root.findViewById(R.id.datePickerHolder);
         DatePicker datePicker = root.findViewById(R.id.datePicker);
-        timestamp.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 0,0,0);
+        timestamp.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 23,59,59);
+        timestampEnd.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 0,0,0);
         datePickerHolder.setText(timestamp.get(Calendar.DAY_OF_MONTH) + "/" + (timestamp.get(Calendar.MONTH)+1) + "/" + timestamp.get(Calendar.YEAR));
         datePickerHolder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -97,13 +99,16 @@ public class HomeFragment extends Fragment  {
             }
         });
 
+        datePicker.setMinDate(System.currentTimeMillis());
+
         datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 datePickerHolder.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
                 datePicker.setVisibility(View.GONE);
                 // Set timestamp from year, month and day
-                timestamp.set(year, monthOfYear, dayOfMonth, 0,0,0);
+                timestamp.set(year, monthOfYear, dayOfMonth, 23,59,59);
+                timestampEnd.set(year, monthOfYear, dayOfMonth, 0,0,0);
             }
         });
 
@@ -152,6 +157,30 @@ public class HomeFragment extends Fragment  {
         mySwipeRefreshLayout.setOnRefreshListener(() -> {
             Log.i("Tag", "onRefresh called from SwipeRefreshLayout");
             initFirestoreLocationCache(finalRoot, mySwipeRefreshLayout);
+            DocumentReference userRef = db.collection("users").document(userId);
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String imageUrl = document.getString("imageUrl");
+
+                            if (imageUrl != null) {
+                                // Load the image from imageUrl
+                                Cache.avatarCache = imageUrl;
+                                Cache.userName = document.getString("fullname");
+                                ImageView imageView = finalRoot.findViewById(R.id.avatar_image);
+                                Picasso.get().load(imageUrl).into(imageView);
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         });
 
         View searchButton = root.findViewById(R.id.search_button);
@@ -162,8 +191,8 @@ public class HomeFragment extends Fragment  {
             public void onClick(View v) {
                 db.collection("tours")
                     .whereEqualTo("destination_id", idSearch)
-                    .whereGreaterThanOrEqualTo("arrival_date", timestamp.getTime())
                     .whereLessThanOrEqualTo("departure_date", timestamp.getTime())
+                    .whereGreaterThanOrEqualTo("arrival_date", timestampEnd.getTime())
                     .orderBy("name")
                     .get()
                     .addOnCompleteListener(task -> {

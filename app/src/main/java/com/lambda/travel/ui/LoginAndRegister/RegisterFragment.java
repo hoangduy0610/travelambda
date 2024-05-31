@@ -116,6 +116,9 @@ public class RegisterFragment extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     // Sign in success, update UI with the signed-in user's information
+                                                    Intent intent = new Intent(getApplicationContext(), LoginFragment.class);
+                                                    startActivity(intent);
+                                                    finish();
                                                     Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
                                                 }
                                             })
