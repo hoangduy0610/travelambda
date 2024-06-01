@@ -18,22 +18,19 @@
             android:id="@+id/img_back"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:layout_gravity="center|start"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="38dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/baseline_arrow_back_24_white"
             android:padding="2dp" />
 
         <TextView
             android:id="@+id/titleFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginStart="110dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="48dp"
             android:fontFamily="@font/poppins_medium"
-            android:gravity="bottom"
+            android:gravity="center"
             android:text="@string/about_us"
             android:textColor="@color/white"
             android:textSize="20sp" />

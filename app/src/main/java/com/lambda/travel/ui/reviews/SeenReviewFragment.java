@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentSeenreviewsScreenBinding;
 import com.lambda.travel.dto.TourInfo;
 import com.lambda.travel.model.Review;
+import com.squareup.picasso.Picasso;
 
 public class SeenReviewFragment extends Fragment {
 
@@ -37,7 +39,9 @@ public class SeenReviewFragment extends Fragment {
         bottomNav = getActivity().findViewById(R.id.nav_view);
         bottomNav.setVisibility(View.GONE);
 
-        ((TextView) root.findViewById(R.id.starReview)).setText(Double.toString(TourInfo.reviewPoint));
+        if (!Double.isNaN(TourInfo.reviewPoint)) {
+            ((TextView) root.findViewById(R.id.starReview)).setText(Double.toString(TourInfo.reviewPoint));
+        }
         ((TextView) root.findViewById(R.id.readReviewNameTour)).setText(TourInfo.tour.name);
         ((TextView) root.findViewById(R.id.readReviewLocation)).setText(TourInfo.location.city);
 
@@ -59,6 +63,8 @@ public class SeenReviewFragment extends Fragment {
                     if (task.isSuccessful()) {
                         if (document.exists()) {
                             authorReviewName.setText(document.getString("fullname"));
+                            ImageView imageView = reviewView.findViewById(R.id.imageView9);
+                            Picasso.get().load(document.getString("imageUrl")).into(imageView);
                         }
                     }
                     reviewContainer.addView(reviewView);

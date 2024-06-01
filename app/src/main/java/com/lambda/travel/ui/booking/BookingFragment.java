@@ -1,7 +1,10 @@
 package com.lambda.travel.ui.booking;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.lambda.travel.databinding.FragmentBookingBinding;
 import com.lambda.travel.R;
 import com.lambda.travel.model.Review;
+import com.lambda.travel.model.TourSchedule;
 import com.lambda.travel.ui.InforBook.InformationBookingFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.lambda.travel.dto.TourInfo;
@@ -34,6 +38,8 @@ import com.lambda.travel.model.Hotel;
 import com.lambda.travel.model.Tour;
 import com.lambda.travel.ui.reviews.SeenReviewFragment;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BookingFragment extends Fragment {
@@ -77,8 +83,9 @@ public class BookingFragment extends Fragment {
             }
         });
 
-
-        ((TextView) root.findViewById(R.id.booking_rating)).setText(Double.toString(TourInfo.reviewPoint));
+        if (!Double.isNaN(TourInfo.reviewPoint)) {
+            ((TextView) root.findViewById(R.id.booking_rating)).setText(Double.toString(TourInfo.reviewPoint));
+        }
         db = FirebaseFirestore.getInstance();
 
         //detail = root.findViewById(R.id.detail);
@@ -99,7 +106,7 @@ public class BookingFragment extends Fragment {
 
 
         // Read data from Firestore
-        readDataFromFirestore();
+        readDataFromFirestore(root);
         
         View contButton = root.findViewById(R.id.btn_continue);
 
@@ -115,6 +122,37 @@ public class BookingFragment extends Fragment {
                 FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().build();
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
                 navController.navigate(R.id.navigation_infor_booking_screen, null, null, extras);
+            }
+        });
+
+        View tourSchedule = root.findViewById(R.id.tour_schedule_detail);
+
+        // Set an OnClickListener to handle the onPress event
+        tourSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setTitle("Tour Schedule");
+
+                StringBuilder scheduleDetails = new StringBuilder();
+                for (TourSchedule schedule : TourInfo.tour.tour_schedule) {
+                    scheduleDetails.append("Date: ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(schedule.date)).append("\n");
+                    scheduleDetails.append("Details: ").append(schedule.detail).append("\n\n");
+                }
+
+                builder.setMessage(scheduleDetails.toString());
+
+                // Add a button to dismiss the dialog
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                // Create and show the dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -145,8 +183,11 @@ public class BookingFragment extends Fragment {
         binding = null;
     }
 
-    private void readDataFromFirestore() {
+    private void readDataFromFirestore(View root) {
         Tour tours = TourInfo.tour;
+
+        Picasso.get().load(tours.banner).into((ImageView) root.findViewById(R.id.bannerImg));
+        ((TextView) root.findViewById(R.id.locationName)).setText(TourInfo.location.city);
 
         hotels = tours.hotel;
         foods = tours.food;
