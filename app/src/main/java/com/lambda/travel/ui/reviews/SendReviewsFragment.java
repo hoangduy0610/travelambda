@@ -71,6 +71,7 @@ public class SendReviewsFragment extends Fragment {
                 Map<String, Object> review = new HashMap<>();
                 review.put("user_id", userId);
                 review.put("tour_id", SelectTourForReview.tourId);
+                review.put("location_id", SelectTourForReview.tour.destination_id);
                 review.put("remark", remark);
                 review.put("review", rate);
 
@@ -93,6 +94,14 @@ public class SendReviewsFragment extends Fragment {
                             Toast.makeText(getActivity(), "Review failed", Toast.LENGTH_SHORT).show();
                         }
                     });
+            }
+        });
+
+        root.findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                navController.popBackStack();
             }
         });
 

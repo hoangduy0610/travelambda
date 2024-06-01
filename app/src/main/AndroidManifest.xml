@@ -16,11 +16,13 @@
 
         <activity
             android:name=".ui.forgotPassword.forgotPasswordFragment"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,53 +32,31 @@
         <activity
             android:name=".GetStartedActivity"
             android:exported="true"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="Get Started">
         </activity>
         <activity
             android:name=".LoginRegisterActivity"
             android:exported="true"
-            android:label="Login And Register Page">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="Login And Register Page"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".ui.LoginAndRegister.RegisterFragment"
             android:exported="true"
             android:label="Register Page"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.LoginAndRegister.LoginFragment"
             android:exported="true"
-            android:label="Login Page">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="Login Page"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".HomeTabActivity"
             android:exported="true"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="Home Tab"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

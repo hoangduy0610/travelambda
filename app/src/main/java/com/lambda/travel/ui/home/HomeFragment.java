@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentHomeScreenBinding;
+import com.lambda.travel.dto.Cache;
 import com.lambda.travel.model.Review;
 import com.lambda.travel.ui.reviews.SeenReviewFragment;
 import com.lambda.travel.dto.TourInfo;
@@ -60,6 +62,7 @@ public class HomeFragment extends Fragment  {
 
     private FragmentHomeScreenBinding binding;
     private Calendar timestamp = Calendar.getInstance();
+    private Calendar timestampEnd = Calendar.getInstance();
     private boolean allowTogglePicker = true;
     private String idSearch;
     ImageView fab;
@@ -76,7 +79,8 @@ public class HomeFragment extends Fragment  {
         }
         EditText datePickerHolder = root.findViewById(R.id.datePickerHolder);
         DatePicker datePicker = root.findViewById(R.id.datePicker);
-        timestamp.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 0,0,0);
+        timestamp.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 23,59,59);
+        timestampEnd.set(timestamp.get(Calendar.YEAR), timestamp.get(Calendar.MONTH), timestamp.get(Calendar.DAY_OF_MONTH), 0,0,0);
         datePickerHolder.setText(timestamp.get(Calendar.DAY_OF_MONTH) + "/" + (timestamp.get(Calendar.MONTH)+1) + "/" + timestamp.get(Calendar.YEAR));
         datePickerHolder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -95,13 +99,16 @@ public class HomeFragment extends Fragment  {
             }
         });
 
+        datePicker.setMinDate(System.currentTimeMillis());
+
         datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 datePickerHolder.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
                 datePicker.setVisibility(View.GONE);
                 // Set timestamp from year, month and day
-                timestamp.set(year, monthOfYear, dayOfMonth, 0,0,0);
+                timestamp.set(year, monthOfYear, dayOfMonth, 23,59,59);
+                timestampEnd.set(year, monthOfYear, dayOfMonth, 0,0,0);
             }
         });
 
@@ -109,74 +116,72 @@ public class HomeFragment extends Fragment  {
         // Get the current user ID
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String userId = firebaseAuth.getCurrentUser().getUid();
-        DocumentReference userRef = db.collection("users").document(userId);
         View finalRoot = root;
-        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        String imageUrl = document.getString("imageUrl");
+        if (Cache.avatarCache == "") {
+            DocumentReference userRef = db.collection("users").document(userId);
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String imageUrl = document.getString("imageUrl");
 
-                        if (imageUrl != null) {
-                            // Load the image from imageUrl
-                            ImageView imageView = finalRoot.findViewById(R.id.avatar_image);
-                            Picasso.get().load(imageUrl).into(imageView);
+                            if (imageUrl != null) {
+                                // Load the image from imageUrl
+                                Cache.avatarCache = imageUrl;
+                                Cache.userName = document.getString("fullname");
+                                ImageView imageView = finalRoot.findViewById(R.id.avatar_image);
+                                Picasso.get().load(imageUrl).into(imageView);
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        db.collection("locations")
-            .get()
-            .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    List<Location> locations = new ArrayList<>();
-                    List<String> locationLabels = new ArrayList<>();
-                    List<String> locationValues = new ArrayList<>();
-
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Location location = document.toObject(Location.class);
-                        locations.add(location);
-                        locationLabels.add(location.city);
-                        locationValues.add(document.getId());
-                    }
-                    
-
-                    Spinner locationSpinner = finalRoot.findViewById(R.id.location);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, locationLabels);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    locationSpinner.setAdapter(adapter);
-                    locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                        @Override
-                        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                            String id = locationValues.get(arg2);
-                            idSearch = id;
-                            TourInfo.location = locations.get(arg2);
-                            Log.d("T", id);
-                            ImageView imageView = finalRoot.findViewById(R.id.imageView);
-                            String imageUrl = locations.get(arg2).image;
-                            Picasso.get().load(imageUrl).into(imageView);
-
-                            TextView textView = finalRoot.findViewById(R.id.location_desc);
-                            textView.setText(locations.get(arg2).description);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                            // TODO Auto-generated method stub
-                        }
-                    });
-                } else {
-                    Log.d("D", "Error getting documents: ", task.getException());
                 }
             });
+        } else {
+            ImageView imageView = finalRoot.findViewById(R.id.avatar_image);
+            Picasso.get().load(Cache.avatarCache).into(imageView);
+        }
+
+        SwipeRefreshLayout mySwipeRefreshLayout = root.findViewById(R.id.swiperefresh);
+        if (Cache.locationsCache.isEmpty()) {
+            initFirestoreLocationCache(finalRoot, mySwipeRefreshLayout);
+        } else {
+            loadDataLocationToDropdown(finalRoot, Cache.locationsCache, Cache.locationLabelsCache, Cache.locationValuesCache);
+        }
+
+        mySwipeRefreshLayout.setOnRefreshListener(() -> {
+            Log.i("Tag", "onRefresh called from SwipeRefreshLayout");
+            initFirestoreLocationCache(finalRoot, mySwipeRefreshLayout);
+            DocumentReference userRef = db.collection("users").document(userId);
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String imageUrl = document.getString("imageUrl");
+
+                            if (imageUrl != null) {
+                                // Load the image from imageUrl
+                                Cache.avatarCache = imageUrl;
+                                Cache.userName = document.getString("fullname");
+                                ImageView imageView = finalRoot.findViewById(R.id.avatar_image);
+                                Picasso.get().load(imageUrl).into(imageView);
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        });
 
         View searchButton = root.findViewById(R.id.search_button);
 
@@ -186,8 +191,8 @@ public class HomeFragment extends Fragment  {
             public void onClick(View v) {
                 db.collection("tours")
                     .whereEqualTo("destination_id", idSearch)
-                    .whereGreaterThanOrEqualTo("arrival_date", timestamp.getTime())
                     .whereLessThanOrEqualTo("departure_date", timestamp.getTime())
+                    .whereGreaterThanOrEqualTo("arrival_date", timestampEnd.getTime())
                     .orderBy("name")
                     .get()
                     .addOnCompleteListener(task -> {
@@ -214,7 +219,8 @@ public class HomeFragment extends Fragment  {
                             // Create a list of tour labels
                             List<String> tourLabels = new ArrayList<>();
                             for (Tour tour : tours) {
-                                String label = tour.name + " - " + tour.pricing;
+                                String amountCurrency = String.format("%,.2f", Float.valueOf(Long.toString(tour.pricing)));
+                                String label = tour.name + " - " + amountCurrency.substring(0, amountCurrency.length() - 3) + " VND";
                                 tourLabels.add(label);
                             }
 
@@ -241,7 +247,8 @@ public class HomeFragment extends Fragment  {
                                     TourInfo.tour_id = tour_ids.get(position);
 
                                     db.collection("reviews")
-                                        .whereEqualTo("tour_id", tour_ids.get(position))
+                                        // .whereEqualTo("tour_id", tour_ids.get(position))
+                                        .whereEqualTo("location_id", selectedTour.destination_id)
                                         .get()
                                         .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {
@@ -286,5 +293,64 @@ public class HomeFragment extends Fragment  {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void initFirestoreLocationCache(View finalRoot, SwipeRefreshLayout srl) {
+        srl.setRefreshing(true);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("locations")
+            .get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    List<Location> locations = new ArrayList<>();
+                    List<String> locationLabels = new ArrayList<>();
+                    List<String> locationValues = new ArrayList<>();
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Location location = document.toObject(Location.class);
+                        locations.add(location);
+                        locationLabels.add(location.city);
+                        locationValues.add(document.getId());
+                    }
+
+                    Cache.locationsCache = locations;
+                    Cache.locationLabelsCache = locationLabels;
+                    Cache.locationValuesCache = locationValues;
+
+                    loadDataLocationToDropdown(finalRoot, locations, locationLabels, locationValues);
+                    srl.setRefreshing(false);
+                } else {
+                    Log.d("D", "Error getting documents: ", task.getException());
+                    srl.setRefreshing(false);
+                }
+            });
+    }
+
+    private void loadDataLocationToDropdown(View finalRoot, List<Location> locations, List<String> locationLabels, List<String> locationValues) {
+        Spinner locationSpinner = finalRoot.findViewById(R.id.location);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, locationLabels);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(adapter);
+        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                String id = locationValues.get(arg2);
+                idSearch = id;
+                TourInfo.location = locations.get(arg2);
+                Log.d("T", id);
+                ImageView imageView = finalRoot.findViewById(R.id.imageView);
+                String imageUrl = locations.get(arg2).image;
+                Picasso.get().load(imageUrl).into(imageView);
+
+                TextView textView = finalRoot.findViewById(R.id.location_desc);
+                textView.setText(locations.get(arg2).description);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 }

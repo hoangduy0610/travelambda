@@ -38,7 +38,10 @@ import com.google.firebase.storage.UploadTask;
 import com.lambda.travel.LoginRegisterActivity;
 import com.lambda.travel.R;
 import com.lambda.travel.databinding.FragmentProfilescreenBinding;
+import com.lambda.travel.dto.Cache;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.UUID;
 
@@ -64,30 +67,38 @@ public class ProfileFragment extends Fragment {
 
         // Get the document with id=userId in the "users" collection in Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(userId);
         View finalRoot = root;
-        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        ((TextView) finalRoot.findViewById(R.id.textView2)).setText(document.getString("fullname"));
-                        String imageUrl = document.getString("imageUrl");
+        if (Cache.avatarCache == "") {
+            DocumentReference userRef = db.collection("users").document(userId);
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String imageUrl = document.getString("imageUrl");
 
-                        if (imageUrl != null) {
-                            // Load the image from imageUrl
-                            ImageView imageView = finalRoot.findViewById(R.id.ticketBackHeadingBtn);
-                            Picasso.get().load(imageUrl).into(imageView);
+                            if (imageUrl != null) {
+                                // Load the image from imageUrl
+                                Cache.avatarCache = imageUrl;
+                                Cache.userName = document.getString("fullname");
+                                ImageView imageView = finalRoot.findViewById(R.id.ticketBackHeadingBtn);
+                                Picasso.get().load(imageUrl).into(imageView);
+                                ((TextView) finalRoot.findViewById(R.id.textView2)).setText(document.getString("fullname"));
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getActivity(), "Something error happened", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+        } else {
+            ImageView imageView = finalRoot.findViewById(R.id.ticketBackHeadingBtn);
+            Picasso.get().load(Cache.avatarCache).into(imageView);
+            ((TextView) finalRoot.findViewById(R.id.textView2)).setText(Cache.userName);
+        }
 
         ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
@@ -109,11 +120,15 @@ public class ProfileFragment extends Fragment {
                                     public void onSuccess(Uri downloadUri) {
                                         // Do something with the download URL
                                         String imageUrl = downloadUri.toString();
+                                        DocumentReference userRef = db.collection("users").document(userId);
                                         userRef.update("imageUrl", imageUrl)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
+                                                        Cache.avatarCache = imageUrl;
+                                                        ImageView imageView = finalRoot.findViewById(R.id.ticketBackHeadingBtn);
+                                                        Picasso.get().load(imageUrl).into(imageView);
                                                         Toast.makeText(getActivity(), "Uploaded Avatar Successfully", Toast.LENGTH_SHORT).show();
                                                     } else {
                                                         Toast.makeText(getActivity(), "Failed to save avatar", Toast.LENGTH_SHORT).show();
